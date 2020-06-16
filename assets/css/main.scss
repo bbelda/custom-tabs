@@ -1,0 +1,374 @@
+@mixin clear-fix() {
+    &::before, &::after {
+        content: '';
+        display: table;
+        clear: both;
+    }
+}
+
+@mixin on-event($self: false) {
+    @if $self {
+
+        &,
+        &:hover,
+        &:active,
+        &:focus {
+            @content;
+        }
+    }
+
+    @else {
+
+        &:hover,
+        &:active,
+        &:focus {
+            @content;
+        }
+    }
+}
+
+@mixin when-inside($context) {
+    #{$context} & {
+        @content;
+    }
+}
+
+@mixin font-face($fontFamily, $path, $fileName, $svgLabel, $fontWeight: normal, $fontStyle: normal) {
+
+    @font-face {
+        font-family: $fontFamily;
+
+        src: local('#{$path + $fileName}.eot');
+        src: local('#{$path + $fileName}.eot?#iefix') format('embedded-opentype'),
+        local('#{$path + $fileName}.woff') format('woff'),
+        local('#{$path + $fileName}.ttf') format('truetype'),
+        local('#{$path + $fileName}.svg##{$svgLabel}') format('svg');
+
+        font-weight: $fontWeight;
+        font-style: $fontStyle;
+    }
+
+}
+
+@mixin respond-to($breakpoint) {
+
+    @if $breakpoint=="xs" {
+        @media screen and (max-width: 767px) {
+            @content;
+        }
+    }
+
+    @if $breakpoint=="xs-sm" {
+        @media screen and (max-width: 991px) {
+            @content;
+        }
+    }
+
+    @if $breakpoint=="xs-sm-md" {
+        @media screen and (max-width: 1199px) {
+            @content;
+        }
+    }
+
+    @if $breakpoint=="sm" {
+        @media (min-width: 768px) and (max-width: 991px) {
+            @content;
+        }
+    }
+
+    @if $breakpoint=="sm-lg" {
+        @media (min-width: 768px) {
+            @content;
+        }
+    }
+
+    @if $breakpoint=="sm-md" {
+        @media (min-width: 768px) and (max-width: 1199px) {
+            @content;
+        }
+    }
+
+    @if $breakpoint=="md" {
+        @media (min-width: 992px) and (max-width: 1199px) {
+            @content;
+        }
+    }
+
+    @if $breakpoint=="md-lg" {
+        @media screen and (min-width: 992px) {
+            @content;
+        }
+    }
+
+    @if $breakpoint=="lg" {
+        @media screen and (min-width: 1200px) {
+            @content;
+        }
+    }
+
+    @if $breakpoint=="md2" {
+        @media (min-width: 992px) and (max-width: 1225px) {
+            @content;
+        }
+    }
+
+    @if $breakpoint=="small-lg" {
+        @media (min-width: 1200px) and (max-width: 1366px) {
+            @content;
+        }
+    }
+}
+
+@mixin transition($properties...) {
+    -webkit-transition: $properties;
+    -moz-transition: $properties;
+    -ms-transition: $properties;
+    -o-transform: $properties;
+    transition: $properties;
+}
+
+@mixin transform($properties...) {
+    -webkit-transform: $properties;
+    -moz-transform: $properties;
+    -ms-transform: $properties;
+    -o-transform: $properties;
+    transform: $properties;
+}
+
+@mixin animation($properties...) {
+    -webkit-animation: $properties;
+    -moz-animation: $properties;
+    -ms-animation: $properties;
+    -o-animation: $properties;
+    animation: $properties;
+}
+
+@mixin box-shadow($properties...) {
+    -webkit-box-shadow: $properties;
+    -moz-box-shadow: $properties;
+    -ms-box-shadow: $properties;
+    -o-box-shadow: $properties;
+    box-shadow: $properties;
+}
+
+@mixin text-shadow($properties...) {
+    -webkit-text-shadow: $properties;
+    -moz-text-shadow: $properties;
+    -ms-text-shadow: $properties;
+    -o-text-shadow: $properties;
+    text-shadow: $properties;
+}
+
+@mixin linear-gradient($direction, $colors...) {
+    @if $direction=='right' {
+        background: -webkit-linear-gradient(left, $colors);
+        background: -moz-linear-gradient(left, $colors);
+        background: linear-gradient(to $direction, $colors);
+    }
+
+    @else if $direction=='left' {
+        background: -webkit-linear-gradient(right, $colors);
+        background: -moz-linear-gradient(right, $colors);
+        background: linear-gradient(to $direction, $colors);
+    }
+
+    @else {
+        background: -webkit-linear-gradient($direction, $colors);
+        background: linear-gradient($direction, $colors);
+    }
+
+    background: -o-linear-gradient($direction, $colors);
+}
+
+@mixin radial-gradient($properties...) {
+    background: -webkit-radial-gradient($properties);
+    background: -moz-radial-gradient($properties);
+    background: -o-radial-gradient($properties);
+    background: radial-gradient($properties);
+}
+
+@mixin keyframes($keyframesName) {
+    @-webkit-keyframes #{$keyframesName} {
+        @content;
+    }
+
+    @-moz-keyframes #{$keyframesName} {
+        @content;
+    }
+
+    @keyframes #{$keyframesName} {
+        @content;
+    }
+}
+
+@mixin user-select($property) {
+    -webkit-user-select: $property;
+    -moz-user-select: $property;
+    -ms-user-select: $property;
+    -o-user-select: $property;
+    user-select: $property;
+}
+
+@mixin appearance($property) {
+    -webkit-appearance: $property;
+    -moz-appearance: $property;
+    -ms-appearance: $property;
+    -o-appearance: $property;
+    appearance: $property;
+}
+
+@mixin hypens($property) {
+    -moz-hyphens: $property;
+    -ms-hyphens: $property;
+    -webkit-hyphens: $property;
+    hyphens: $property;
+}
+
+@mixin placeholder() {
+    &::-webkit-input-placeholder {
+        @content;
+    }
+
+    &:-moz-placeholder {
+        @content;
+    }
+
+    &::-moz-placeholder {
+        @content;
+    }
+
+    &:-ms-input-placeholder {
+        @content;
+    }
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap');
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    margin: 0 !important;
+    font-family: 'Poppins',sans-serif;
+}
+*[class*="col"] {
+    max-width: 100% !important;
+}
+.custom-tabs     {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding-left: calc((100vw - 1170px)/2);
+    display: flex;
+    .custom-tabs-intro {
+        padding-right: 40px;
+        margin-bottom: 80px !important;
+        h2 {
+            margin-top: 10px !important;
+            margin-bottom: 20px !important;
+        }
+        h4 {
+            font-size: 14px;
+            line-height: 20px;
+            display: flex;
+            &::before {
+                content: '';
+                position: relative;
+                display: inline-block;
+                margin-right: 10px;
+                width: 70px;
+                height: 2px;
+                background-color: #d92c40;
+                vertical-align: middle;
+                display: flex;
+                align-self: center;
+            }
+        }
+    }
+    .custom-tab-nav {
+        display: flex;
+        flex-wrap: wrap;
+        flex: calc((100vw - 1170px)/2);
+        position: relative;
+        width: calc((100vw - 1170px)/2);
+        z-index: 2;
+        ul {
+            margin: 0;
+            padding: 0;
+            font-size: 0;
+            list-style: none;
+            display: block;
+            align-self: flex-end;
+            width: 100%;
+            li {
+                margin: 0;
+                padding: 0;
+                list-style-type: none;
+                width: 100%;
+                display: block;
+                &.active {
+                    a {
+                        background-color: #0051ab;
+                        color: #ffffff;
+                        
+                    }
+                }
+                a {
+                    display: block;
+                    width: 100%;
+                    text-decoration: none;
+                    font-size: 25px;
+                    font-family: 'Poppins',sans-serif;
+                    font-weight: 500;
+                    line-height: 30px;
+                    padding: 10px 20px;
+                    background-color: transparent;
+                }
+            }
+        }
+    }
+    .custom-tab-content {
+        display: flex;
+        flex: calc((100vw - 1170px));
+        overflow: hidden;
+        position: relative;
+        .custom-tab-body-content {
+            overflow: visible;
+            height: 100%;
+            position: absolute;
+            .custom-tab-item {
+                &.default-tab {
+                    width: 100% !important;
+                }
+                height: 100%;
+                display: flex;
+                background-position: center;
+                background-size: cover;
+                background-repeat: no-repeat;
+                position: relative;
+                &::before {
+                    content:'';
+                    position: absolute;
+                    background-color: rgba($color: #000000, $alpha: 0.5);
+                    width: 100%;
+                    height: 100%;
+                    z-index: 0;
+                }
+                .custom-tab-details{
+                    align-self: flex-end;
+                    position: relative;
+                    z-index: 1;
+                    padding: 40px;
+                    h5 {
+                        color: #ffffff;
+                        margin-bottom: 10px !important;
+                    }
+                    p {
+                        color: #ffffff;
+                    }
+                }
+            }
+        }
+    }
+}
